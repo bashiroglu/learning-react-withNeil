@@ -101,6 +101,9 @@ class EventDashboard extends Component {
           />
           {isOpen && (
             <EventForm
+              key={
+                selectedEvent ? selectedEvent.id : 0
+              } /* this key help react to manage this particular event click  */
               selectedEvent={selectedEvent}
               cancelFormOpen={this.handleCreateFormCancel}
               createEvent={this.handleCreateEvent}
