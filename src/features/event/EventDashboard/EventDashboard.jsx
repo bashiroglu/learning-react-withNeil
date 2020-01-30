@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import { increment, decrement } from '../eventActions';
+import { createEvent, updateEvent, deleteEvent } from '../eventActions';
 
 import { Grid, Button } from 'semantic-ui-react';
 import EventList from '../EventList/EventList';
@@ -29,8 +29,8 @@ class EventDashboard extends Component {
   handleCreateEvent = newEvent => {
     newEvent.id = cuid();
     newEvent.hostPhotoURL = '/assets/user.png';
+    this.props.createEvent(newEvent);
     this.setState(({ events }) => ({
-      events: [...events, newEvent],
       isOpen: false
     }));
   };
@@ -38,22 +38,14 @@ class EventDashboard extends Component {
     this.setState({ selectedEvent: event, isOpen: true });
   };
   handleUpdateEvent = updatedEvent => {
+    this.props.updateEvent(updatedEvent);
     this.setState(({ events }) => ({
-      events: events.map(event => {
-        if (event.id === updatedEvent.id) {
-          return { ...updatedEvent };
-        } else {
-          return event;
-        }
-      }),
       isOpen: false,
       selectedEvent: null
     }));
   };
-  handleDeleteEvent = deletedEvent => {
-    this.setState(({ events }) => ({
-      events: events.filter(event => event.id !== deletedEvent.id)
-    }));
+  handleDeleteEvent = id => {
+    this.props.deleteEvent(id);
   };
 
   render() {
@@ -93,5 +85,10 @@ class EventDashboard extends Component {
 const mapStateToProps = state => ({
   events: state.events
 });
+const mapDispatchToProps = {
+  createEvent,
+  updateEvent,
+  deleteEvent
+};
 
-export default connect(mapStateToProps)(EventDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(EventDashboard);
