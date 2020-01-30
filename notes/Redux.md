@@ -74,3 +74,11 @@ switch (action.type) {
       return state;
   }
 ```
+
+- in mapstatetoprops function, if we want to get access to own props of component we can use ownprops parametr as a second parametr
+
+```
+const mapState = (state, ownProps) => {
+  const eventId = ownProps.match.params.id;
+};
+```
