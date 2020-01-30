@@ -16,7 +16,7 @@ export class TestComponent extends Component {
   }
 }
 const MapStateToProps = state => ({
-  data: state.data
+  data: state.test.data
 });
 const MapDispatchToProps = {
   increment,
