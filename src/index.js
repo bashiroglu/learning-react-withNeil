@@ -11,8 +11,6 @@ import configueStore from './app/store/configeStore';
 const rootEl = document.getElementById('root');
 const store = configueStore();
 
-console.log(store.getState());
-
 let render = () => {
   ReactDOM.render(
     <Provider store={store}>
