@@ -1,26 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement } from './testActions';
+import { incrementCounter, decrementCounter } from './testActions';
+import { Button } from 'semantic-ui-react';
+import TestPlaceInput from './TestPlaceInput';
+import SimpleMap from './SimpleMap';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-export class TestComponent extends Component {
+const mapState = state => ({
+  data: state.test.data
+});
+
+const actions = {
+  incrementCounter,
+  decrementCounter
+};
+
+class TestComponent extends Component {
+  state = {
+    latlng: {
+      lat: 59.95,
+      lng: 30.33
+    }
+  };
+
+  handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        this.setState({
+          latlng: latLng
+        });
+      })
+      .catch(error => console.error('Error', error));
+  };
+
   render() {
-    const { increment, decrement, data } = this.props;
+    const { data, incrementCounter, decrementCounter } = this.props;
     return (
       <div>
-        <h1>hello </h1>
-        <h1 onClick={increment}>increment </h1>
-        <h1 onClick={decrement}>decrement </h1>
-        <h1>hello {data} </h1>
+        <h1>Test Component</h1>
+        <h3>The answer is: {data}</h3>
+        <Button onClick={incrementCounter} positive content="Increment" />
+        <Button onClick={decrementCounter} negative content="Decrement" />
+        <br />
+        <br />
+        <TestPlaceInput selectAddress={this.handleSelect} />
+        <SimpleMap key={this.state.latlng.lng} latlng={this.state.latlng} />
       </div>
     );
   }
 }
-const MapStateToProps = state => ({
-  data: state.test.data
-});
-const MapDispatchToProps = {
-  increment,
-  decrement
-};
 
-export default connect(MapStateToProps, MapDispatchToProps)(TestComponent);
+export default connect(mapState, actions)(TestComponent);
