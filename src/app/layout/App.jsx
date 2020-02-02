@@ -9,6 +9,8 @@ import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 import EventForm from '../../features/event/EventForm/EventForm';
+import ModalManager from '../../features/models/ModalManager';
+import TestComponent from '../../features/testarea/TestComponent';
 
 class App extends Component {
   render() {
@@ -22,6 +24,7 @@ class App extends Component {
           path="/(.+)"
           render={() => (
             <div>
+              <ModalManager />>
               <NavBar />
               <Container className="main">
                 <Switch>
@@ -30,6 +33,7 @@ class App extends Component {
                   <Route path="/people" component={PeopleDashboard} />
                   <Route path="/profile/:id" component={UserDetailedPage} />
                   <Route path="/settings" component={SettingsDashboard} />
+                  <Route path="/testcomponent" component={TestComponent} />
                   <Route
                     path={['/createEvent', '/manage/:id']}
                     component={EventForm}
@@ -45,4 +49,3 @@ class App extends Component {
 }
 
 export default withRouter(App);
-
