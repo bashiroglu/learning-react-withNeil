@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement } from './testActions';
+import { incrementCounter, decrementCounter } from './testActions';
 import { Button } from 'semantic-ui-react';
 import TestPlaceInput from './TestPlaceInput';
 import SimpleMap from './SimpleMap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { openModal } from '../models/modalActions';
+import {openModal} from '../modals/modalActions';
 
 const mapState = state => ({
   data: state.test.data
 });
 
 const actions = {
-  increment,
-  decrement,
+  incrementCounter,
+  decrementCounter,
   openModal
 };
 
@@ -42,14 +42,9 @@ class TestComponent extends Component {
       <div>
         <h1>Test Component</h1>
         <h3>The answer is: {data}</h3>
-        <Button onClick={incrementCounter} positive content="Increment" />
-        <Button onClick={decrementCounter} negative content="Decrement" />
-        <Button
-          onClick={() => openModal('testModal', { data: 41 })}
-          positive
-          content="openModel"
-        />
-
+        <Button onClick={incrementCounter} positive content='Increment' />
+        <Button onClick={decrementCounter} negative content='Decrement' />
+        <Button onClick={() => openModal('TestModal', {data: 42})} color='teal' content='Open Modal' />
         <br />
         <br />
         <TestPlaceInput selectAddress={this.handleSelect} />
@@ -59,4 +54,7 @@ class TestComponent extends Component {
   }
 }
 
-export default connect(mapState, actions)(TestComponent);
+export default connect(
+  mapState,
+  actions
+)(TestComponent);

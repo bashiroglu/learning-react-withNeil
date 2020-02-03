@@ -1,9 +1,9 @@
 import React from 'react';
-import TestModel from './TestModel';
+import TestModal from './TestModal';
 import { connect } from 'react-redux';
 
 const modalLookup = {
-  TestModel
+  TestModal
 };
 
 function ModalManager({ currentModal }) {
@@ -16,7 +16,7 @@ function ModalManager({ currentModal }) {
   return <span>{renderModal}</span>;
 }
 const mapStateToProps = state => ({
-  currentModel: state.modals
+  currentModal: state.modals
 });
 
 export default connect(mapStateToProps)(ModalManager);

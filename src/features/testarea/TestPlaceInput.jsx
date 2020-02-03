@@ -12,7 +12,7 @@ class TestPlaceInput extends React.Component {
   };
 
   render() {
-    const { selectAddress } = this.props;
+    const {selectAddress} = this.props;
     return (
       <PlacesAutocomplete
         value={this.state.address}
@@ -24,7 +24,7 @@ class TestPlaceInput extends React.Component {
             <input
               {...getInputProps({
                 placeholder: 'Search Places ...',
-                className: 'location-search-input'
+                className: 'location-search-input',
               })}
             />
             <div className="autocomplete-dropdown-container">
@@ -41,7 +41,7 @@ class TestPlaceInput extends React.Component {
                   <div
                     {...getSuggestionItemProps(suggestion, {
                       className,
-                      style
+                      style,
                     })}
                   >
                     <span>{suggestion.description}</span>
